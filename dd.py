@@ -1,6 +1,12 @@
 import discord
 import urllib.parse
 
+#import boto3
+
+#NOTIFICATION_CHANNEL = os.environ['NOTIFICATION_CHANNEL']
+
+#code_deploy = boto3.client('codedeploy', region_name='ap-northeast-1')
+
 client = discord.Client()
 
 @client.event
@@ -12,40 +18,53 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    # 「おはよう」で始まるか調べる
-    if message.content.startswith("test"):
+    # テスト
+    if message.content.startswith("!test"):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author:
+
+            #channel = client.get_channel(423472886955638784)
 
             print(dir(client))
-            print("")
-            print(dir(message))
+            print(client.channel.id)
+            #await client.send_message("423472886955638784", "channel：" + str(message.channel))
 
-    if message.content.startswith("!wiki"):
+            await client.send_message(client.get_channel(423472886955638784), "通知てすと")
+
+    if message.content.startswith("!MinecraftServerStart"):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author:
 
-            if len(message.content) >= 6:
-                str = message.content.split(None, 1)
-                enc = urllib.parse.quote(str[1])
+            # awscliでサーバ起動
 
-                # メッセージを書きます
-                m = "次の検索結果を表示しています：" + str[1] + "( https://ja.wikipedia.org/wiki/" +  enc + " )"
-                # メッセージが送られてきたチャンネルへメッセージを送ります
-                await client.send_message(message.channel, m)
+            # 起動完了メッセージ
+            await client.send_message(message.channel, "Minecraft Server 起動中（大嘘） ...")
 
-    if message.content.startswith("!google"):
+    if message.content.startswith("!MinecraftServerStop"):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author:
 
-            if len(message.content) >= 8:
-                str = message.content.split(None, 1)
-                enc = urllib.parse.quote(str[1])
+            # awscliでサーバ停止
 
-                # メッセージを書きます
-                m = "ぐぐったよ★ミ：" + str[1] + "( https://www.google.co.jp/search?q=" +  enc + "&oq=" + enc + " )"
-                # メッセージが送られてきたチャンネルへメッセージを送ります
-                await client.send_message(message.channel, m)
+            # 起動完了メッセージ
+            await client.send_message(message.channel, "Minecraft Server 停止中（大嘘） ...")
 
+    if message.content.startswith("!PixArkServerStart"):
+        # 送り主がBotだった場合反応したくないので
+        if client.user != message.author:
 
-client.run("確かここにdiscordのキーを入れる")
+            # awscliでサーバ起動
+
+            # 起動完了メッセージ
+            await client.send_message(message.channel, "PixArk Server 起動中（大嘘） ...")
+
+    if message.content.startswith("!PixArkServerStop"):
+        # 送り主がBotだった場合反応したくないので
+        if client.user != message.author:
+
+            # awscliでサーバ停止
+
+            # 起動完了メッセージ
+            await client.send_message(message.channel, "PixArk Server 停止中（大嘘） ...")
+
+client.run("")
